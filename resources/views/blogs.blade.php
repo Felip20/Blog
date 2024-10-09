@@ -8,35 +8,11 @@
     <link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
-        <article>
-            <h1><a href="/blogs/first-blog">First Blog</a></h1>
-            <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate
-            eum dolores voluptate velit odio nemo optio explicabo temporibus. 
-            Perspiciatis laborum repellendus omnis eligendi dignissimos vero 
-            vel ratione provident in eos.
-            </p>
-        </article>
-
-        <article>
-            <h1><a href="/blogs/second-blog">Second Blog</a></h1>
-            <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate
-            eum dolores voluptate velit odio nemo optio explicabo temporibus. 
-            Perspiciatis laborum repellendus omnis eligendi dignissimos vero 
-            vel ratione provident in eos.
-            </p>
-        </article>
-
-        <article>
-            <h1><a href="/blogs/third-blog">Third Blog</a></h1>
-            <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate
-            eum dolores voluptate velit odio nemo optio explicabo temporibus. 
-            Perspiciatis laborum repellendus omnis eligendi dignissimos vero 
-            vel ratione provident in eos.
-            </p>
-        </article>
-        
+    <?php foreach($blogs as $blog):?>
+    <h1><a href="blogs/<?= $blog->slug;?>"><?= $blog->title;?></a></h1>
+    <div>
+        <p><?= $blog->intro;?></p>
+    </div>
+    <?php endforeach; ?>
 </body>
 </html>
