@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
-        <?= $blog->body() ?>
+        <h1><?= $blog->title; ?></h1>
+        <p><?= $blog->body;?></p>
         <a href="/">Back</a>
 
 </body>

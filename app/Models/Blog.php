@@ -10,20 +10,27 @@ class Blog{
     public $slug;
     public $intro;
     public $body;
-    public function __construct($title, $slug, $intro, $body)
+    public $date;
+    public function __construct($title, $slug, $intro, $body, $date)
     {
         $this->title = $title;
         $this->slug = $slug;
         $this->intro = $intro;
         $this->body = $body;
+        $this->date = $date;
     }
     public static function all()
     {
-        $files=File::files(resource_path("blogs"));
-        return array_map(function($file){
-            $obj=YamlFrontMatter::parseFile($file);
-            return new Blog($obj->title,$obj->slug,$obj->intro,$obj->body());
-        },$files);
+        return collect(File::files(resource_path("blogs")))
+        ->map(function($file){
+         $obj=YamlFrontMatter::parseFile($file);
+         return new Blog($obj->title,$obj->slug,$obj->intro,$obj->body(),$obj->date);
+        })
+        ->sortByDesc('date');
+        // return array_map(function($file){
+        //     $obj=YamlFrontMatter::parseFile($file);
+        //     return new Blog($obj->title,$obj->slug,$obj->intro,$obj->body());
+        // },$files);
 
         // return array_map(function($file){
         //     return $file->getContents();
@@ -33,10 +40,7 @@ class Blog{
 
     public static function find($xfile)
      {
-        $path=resource_path("blogs/$xfile.html");
-        if (!file_exists($path)) {
-        return redirect('/');
-        }
-        return file_get_contents($path);
+        $blogs=static::all();
+        return $blogs->firstWhere('slug',$xfile);
     }
 }
