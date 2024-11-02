@@ -11,6 +11,6 @@ Route::get('/', function () {
 
 Route:: get('/blogs/{blog}', function ($xfile) {
     return view('blog', [
-        'blog'=> Blog::find($xfile)
+        'blog'=> Blog::findOrFail($xfile)
     ]);
 });

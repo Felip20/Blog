@@ -43,4 +43,13 @@ class Blog{
         $blogs=static::all();
         return $blogs->firstWhere('slug',$xfile);
     }
+    public static function findOrFail($xfile)
+     {
+        $blog=static::find($xfile);
+        if(!$blog){
+            abort(404);
+        }
+        return $blog;
+
+    }
 }
