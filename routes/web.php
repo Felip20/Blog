@@ -9,8 +9,8 @@ Route::get('/', function () {
     ]);
 });
 
-Route:: get('/blogs/{blog}', function ($xfile) {
+Route:: get('/blogs/{blog}', function ($id) {
     return view('blog', [
-        'blog'=> Blog::findOrFail($xfile)
+        'blog'=> Blog::findOrFail($id)
     ]);
 });

@@ -3,7 +3,7 @@
         <title>All blogs</title>
     </x-slot>
         @foreach($blogs as $blog)
-        <h1><a href="blogs/{{$blog->slug}}">
+        <h1><a href="blogs/{{$blog->id}}">
             {{$blog->title}}</a>
         </h1>
         <div>

@@ -1,55 +1,11 @@
 <?php
 
 namespace App\Models;
-use Illuminate\Support\Facades\File;
-use Spatie\YamlFrontMatter\YamlFrontMatter;
 
-class Blog{
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-    public $title;
-    public $slug;
-    public $intro;
-    public $body;
-    public $date;
-    public function __construct($title, $slug, $intro, $body, $date)
-    {
-        $this->title = $title;
-        $this->slug = $slug;
-        $this->intro = $intro;
-        $this->body = $body;
-        $this->date = $date;
-    }
-    public static function all()
-    {
-        return collect(File::files(resource_path("blogs")))
-        ->map(function($file){
-         $obj=YamlFrontMatter::parseFile($file);
-         return new Blog($obj->title,$obj->slug,$obj->intro,$obj->body(),$obj->date);
-        })
-        ->sortByDesc('date');
-        // return array_map(function($file){
-        //     $obj=YamlFrontMatter::parseFile($file);
-        //     return new Blog($obj->title,$obj->slug,$obj->intro,$obj->body());
-        // },$files);
-
-        // return array_map(function($file){
-        //     return $file->getContents();
-        // },$files);
-
-    }
-
-    public static function find($xfile)
-     {
-        $blogs=static::all();
-        return $blogs->firstWhere('slug',$xfile);
-    }
-    public static function findOrFail($xfile)
-     {
-        $blog=static::find($xfile);
-        if(!$blog){
-            abort(404);
-        }
-        return $blog;
-
-    }
+class Blog extends Model
+{
+    use HasFactory;
 }
