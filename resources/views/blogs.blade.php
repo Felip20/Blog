@@ -8,7 +8,7 @@
         </h1>
         <div>
             <p>
-                Tested at - {{$blog->date}}
+                Tested at - {{$blog->created_at->diffForHumans()}}
             </p>
             <p>
                 {{$blog->intro}}
