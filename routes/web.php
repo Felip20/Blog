@@ -8,13 +8,15 @@ use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
     return view('blogs',[
-        'blogs'=>Blog::latest()->get()
+        'blogs'=>Blog::latest()->get(),
+        'categories'=>Category::all()
     ]);
 });
 
 Route:: get('/blogs/{blog:slug}', function (Blog $blog) {
     return view('blog', [
-        'blog'=> $blog
+        'blog'=> $blog,
+        'randomBlogs'=>Blog::inRandomOrder()->take(3)->get()
     ]);
 });
 

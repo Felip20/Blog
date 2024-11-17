@@ -1,8 +1,8 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container">
-      <a class="navbar-brand" href="./index.html">Blue Lock</a>
+      <a class="navbar-brand" href="/">Blue Lock</a>
       <div class="d-flex">
-        <a href="#home" class="nav-link">Home</a>
+        <a href="/" class="nav-link">Home</a>
         <a href="#blogs" class="nav-link">Blogs</a>
         <a href="#subscribe" class="nav-link">Subscribe</a>
       </div>
