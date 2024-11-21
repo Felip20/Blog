@@ -11,6 +11,16 @@ class Blog extends Model
 
     protected $with=['category', 'author'];
 
+    public function scopeFilter($query,$filter)
+    {
+        $query->when($filter['search']??false,function($query,$ser){
+            $query->where(function($query) use($ser){
+                $query->where('title','LIKE','%'.$ser.'%')
+                    ->orWhere('body','LIKE','%'.$ser.'%');
+            });
+        });
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
