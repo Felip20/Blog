@@ -19,6 +19,17 @@ class Blog extends Model
                     ->orWhere('body','LIKE','%'.$ser.'%');
             });
         });
+        $query->when($filter['category']??false,function($query,$slug){
+            $query->whereHas('category',function($query) use($slug){
+                $query->where('slug',$slug);
+            });
+        });
+        $query->when($filter['author']??false,function($query,$username){
+            $query->whereHas('author', function($query) use($username){
+                $query->where('username',$username);
+            });
+        });
+
     }
 
     public function category()
