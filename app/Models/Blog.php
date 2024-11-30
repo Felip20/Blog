@@ -24,7 +24,7 @@ class Blog extends Model
                 $query->where('slug',$slug);
             });
         });
-        $query->when($filter['author']??false,function($query,$username){
+        $query->when($filter['username']??false,function($query,$username){
             $query->whereHas('author', function($query) use($username){
                 $query->where('username',$username);
             });
