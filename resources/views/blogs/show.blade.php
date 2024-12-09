@@ -1,6 +1,6 @@
 
 <x-layout>
-    <!-- singloe blog section -->
+    <!-- single blog section -->
     <div class="container">
       <div class="row">
         <div class="col-md-6 mx-auto text-center">
@@ -22,6 +22,7 @@
       </div>
     </div>
 
+    <x-comment/>
     <!-- subscribe new blogs -->
 <x-subscribe></x-subscribe>
     <x-blogs-you-like :randoms="$randomBlogs"/>
