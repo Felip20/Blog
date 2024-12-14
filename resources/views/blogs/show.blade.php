@@ -22,7 +22,30 @@
       </div>
     </div>
 
-    <x-comment/>
+    <section class="container">
+        <div class="col-md-8 mx-auto">
+            @auth
+            <x-card-wrapper >
+                <form action="/blogs/{{$blog->slug}}/comments" method="POST">
+                    @csrf
+                    <div class="form-group mb-3">
+                     <textarea name="text" id="" class="form-control border border-0" cols="10" rows="5" placeholder="Say Something.."></textarea>
+                     @error('text')
+                         <p class="text-danger">{{$message}}</p>
+                     @enderror
+                    </div>
+                    <div class="d-flex justify-content-end">
+                     <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+            </form>
+            </x-card-wrapper>
+            @else
+            <p class="text-center">Please <a href="/login">Login</a> to comment the player blog.</p>
+            @endauth
+        </div>
+    </section>
+
+    <x-comment :comments="$blog->comments"/>
     <!-- subscribe new blogs -->
 <x-subscribe></x-subscribe>
     <x-blogs-you-like :randoms="$randomBlogs"/>
