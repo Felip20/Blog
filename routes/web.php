@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 Route::get('/', [BlogController::class,'index']);
 Route:: get('/blogs/{blog:slug}', [BlogController::class,'show']);
+Route::post('/blogs/{blog:slug}/subscribe',[BlogController::class,'subHandler']);
 
 Route::get('/register', [AuthController::class,'create']);
 Route::post('/register',[AuthController::class,'store']);

@@ -26,4 +26,14 @@ class BlogController extends Controller
             'categories'=>Category::all()
         ]);
     }
+
+    public function subHandler(Blog $blog)
+    {
+        if (auth()->user()->issub($blog)) {
+            $blog->unSubscribe();
+        }else{
+            $blog->Subscribe();
+        }
+        return redirect('/blogs/'.$blog->slug);
+    }
 }

@@ -14,6 +14,18 @@
             <div>Author - <a href="/?username={{$blog->author->username}}">{{$blog->author->name}}</a></div>
             <div><a href="/?category={{$blog->category->slug}}"><span class="badge bg-warning text-dark">{{$blog->category->name}}</span></a></div>
             <div class="text-secondary">Date - {{$blog->created_at->diffForHumans()}}</div>
+            <div class="text-secondary">
+                <form action="/blogs/{{$blog->slug}}/subscribe" method="POST">
+                    @csrf
+                    @auth
+                    @if (auth()->user()->isSub($blog))
+                        <button class="btn btn-danger">Unsubscribe</button>
+                    @else
+                        <button class="btn btn-warning">Subscribe</button>
+                    @endif
+                    @endauth
+                </form>
+            </div>
           </div>
           <p class="lh-md mt-3">
             {{$blog->body}}
@@ -25,29 +37,18 @@
     <section class="container">
         <div class="col-md-8 mx-auto">
             @auth
-            <x-card-wrapper >
-                <form action="/blogs/{{$blog->slug}}/comments" method="POST">
-                    @csrf
-                    <div class="form-group mb-3">
-                     <textarea name="text" id="" class="form-control border border-0" cols="10" rows="5" placeholder="Say Something.."></textarea>
-                     @error('text')
-                         <p class="text-danger">{{$message}}</p>
-                     @enderror
-                    </div>
-                    <div class="d-flex justify-content-end">
-                     <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-            </form>
-            </x-card-wrapper>
+            <x-comments-form :blog="$blog"/>
             @else
             <p class="text-center">Please <a href="/login">Login</a> to comment the player blog.</p>
             @endauth
         </div>
     </section>
 
-    <x-comment :comments="$blog->comments"/>
+    @if ($blog->comments->count())
+    <x-comment :comments="$blog->comments()->paginate(4)"/>
+    @endif
+
     <!-- subscribe new blogs -->
-<x-subscribe></x-subscribe>
     <x-blogs-you-like :randoms="$randomBlogs"/>
 </x-layout>
 

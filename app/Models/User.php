@@ -49,4 +49,14 @@ class User extends Authenticatable
     {
         return ucwords($val);
     }
+
+    public function subBlogs()
+    {
+        return $this->belongsToMany(Blog::class);
+    }
+
+    public function isSub($blog)
+    {
+        return auth()->user()->subBlogs && auth()->user()->subBlogs->contains('id',$blog->id);
+    }
 }
