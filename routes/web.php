@@ -4,6 +4,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
+use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
@@ -19,3 +20,8 @@ Route::get('/login', [AuthController::class,'login'])->middleware('guest');
 Route::post('/login',[AuthController::class,'post_login']);
 
 Route::post('/blogs/{blog:slug}/comments',[CommentController::class,'store']);
+
+Route::get('/admin/blogs/create',[BlogController::class,'create']);
+Route::post('/admin/blogs/store',[BlogController::class,'store']);
+
+
